@@ -40,7 +40,7 @@ public class Targets : MonoBehaviour
 
     Vector3 RandomForce()
     {
-        return Vector3.up * Random.Range(minspeed, maxspeed);
+        return Vector3.forward * Random.Range(minspeed, maxspeed);
     }
 
     float RandomTorque()
@@ -50,13 +50,14 @@ public class Targets : MonoBehaviour
 
     Vector3 RandomSpawnPos()
     {
-        return new Vector3(Random.Range(xRange, -xRange), ySpawnPos); 
+        return new Vector3(Random.Range(xRange, -xRange), ySpawnPos, -3); 
     }
 
     private void OnMouseDown()
     {
         Destroy(gameObject);
         gameManager.ScoreUpdate(1);
+        gameManager.GameOver();
         
 
 

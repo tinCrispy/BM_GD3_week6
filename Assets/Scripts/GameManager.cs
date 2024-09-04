@@ -5,6 +5,7 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 using static UnityEngine.PlayerLoop.EarlyUpdate;
+using UnityEngine.SceneManagement;
 
 
 public class GameManager : MonoBehaviour
@@ -18,6 +19,11 @@ public class GameManager : MonoBehaviour
     public Slider musicVolume;
     public AudioSource soundTrack;
 
+    public GameObject GameOverScreen;
+    public GameObject PausedScreen;
+
+    private bool isPaused = false;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -28,13 +34,31 @@ public class GameManager : MonoBehaviour
 
         soundTrack = GameObject.Find("Main Camera").GetComponent<AudioSource>();
 
+        GameOverScreen.SetActive(false);
+        Time.timeScale = 1;
+        PausedScreen.SetActive(false);
+
+
   
     }
 
     // Update is called once per frame
     void Update()
     {
-        ChangeVolume(); 
+        ChangeVolume();
+
+        if (Input.GetKeyDown(KeyCode.P) && isPaused == false)
+        {
+            Time.timeScale = 0;
+            isPaused = true;
+            PausedScreen.SetActive(true);
+        }
+        else if (Input.GetKeyDown(KeyCode.P) && isPaused == true)
+        {
+            Time.timeScale = 1;
+            isPaused = false;
+            PausedScreen.SetActive(false);
+        }
     }
 
     IEnumerator SpawnRandomiser()
@@ -63,4 +87,14 @@ public class GameManager : MonoBehaviour
         soundTrack.volume = musicVolume.value;
     }
    
+    public void GameOver()
+    {
+        GameOverScreen.SetActive(true);
+        Time.timeScale = 0;
+    }
+
+    public void RestartGame()
+    {
+        SceneManager.LoadScene(0);
+    }
 }
