@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using JetBrains.Annotations;
 using UnityEngine;
 
 
@@ -13,13 +14,19 @@ public class Targets : MonoBehaviour
     private float ySpawnPos = 7;
 
     private GameManager gameManager;
+    private PlayerManager playerManager;
+
     public AudioClip soundTrack;
 
-   
-
-
+    private int diceBanked;
 
     
+
+
+
+
+
+
 
     // Start is called before the first frame update
     void Start()
@@ -30,6 +37,9 @@ public class Targets : MonoBehaviour
         transform.position = RandomSpawnPos();
 
         gameManager = GameObject.Find("GameManager").GetComponent<GameManager>();
+        playerManager = GameObject.FindObjectOfType<PlayerManager>();
+
+        diceBanked = 0;
     }
 
     // Update is called once per frame
@@ -55,12 +65,20 @@ public class Targets : MonoBehaviour
 
     private void OnMouseDown()
     {
-        Destroy(gameObject);
-        gameManager.ScoreUpdate(1);
-        gameManager.GameOver();
+    
+//      gameManager.ScoreUpdate(1);
+//        gameManager.GameOver();
+        transform.position = playerManager.diceHolders[playerManager.diceBanked].transform.position + Vector3.up;
+        playerManager.diceBanked++;
+        rb.isKinematic = true;
+
         
 
 
     }
+
+   
+
+
 }
 
