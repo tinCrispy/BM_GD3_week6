@@ -13,12 +13,14 @@ public class Targets : MonoBehaviour
     private float maxTorque = 10;
     private float ySpawnPos = 7;
 
+    public bool isBanked;
+
     private GameManager gameManager;
     private PlayerManager playerManager;
 
     public AudioClip soundTrack;
 
-    private int diceBanked;
+  
 
     
 
@@ -39,7 +41,6 @@ public class Targets : MonoBehaviour
         gameManager = GameObject.Find("GameManager").GetComponent<GameManager>();
         playerManager = GameObject.FindObjectOfType<PlayerManager>();
 
-        diceBanked = 0;
     }
 
     // Update is called once per frame
@@ -71,13 +72,22 @@ public class Targets : MonoBehaviour
         transform.position = playerManager.diceHolders[playerManager.diceBanked].transform.position + Vector3.up;
         playerManager.diceBanked++;
         rb.isKinematic = true;
+        isBanked = true;
 
         
 
 
     }
 
-   
+    private void OnCollisionEnter(Collision collision)
+    {
+        if (collision.gameObject.CompareTag("Die"))
+        {
+            rb.AddForce (0,2,0, ForceMode.Impulse);
+        }
+    }
+
+
 
 
 }

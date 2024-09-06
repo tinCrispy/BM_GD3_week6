@@ -68,6 +68,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: HalloweenDie
       objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 676cec949ba2bda44af25057a3e3341c, type: 3}
+      propertyPath: m_TagString
+      value: Die
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects:
     - {fileID: 65702495048144492, guid: 676cec949ba2bda44af25057a3e3341c, type: 3}
@@ -123,7 +127,7 @@ BoxCollider:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3539569917871644821}
-  m_Material: {fileID: 0}
+  m_Material: {fileID: 13400000, guid: 7562ffd5e1872654d9b054194c1eaaea, type: 2}
   m_IncludeLayers:
     serializedVersion: 2
     m_Bits: 0

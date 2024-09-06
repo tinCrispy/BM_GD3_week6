@@ -11,8 +11,10 @@ public class PlayerManager : MonoBehaviour
     public GameObject[] DicePrefab;
     public GameObject[] diceHolders;
 
+
     public int diceBanked;
 
+    public bool roll1;
 
 
     // Start is called before the first frame update
@@ -22,7 +24,11 @@ public class PlayerManager : MonoBehaviour
         rollButton.onClick.AddListener(RollDice);
 
         diceBanked = 0;
+        roll1 = false;
+
         
+     
+
     }
 
     // Update is called once per frame
@@ -35,11 +41,22 @@ public class PlayerManager : MonoBehaviour
     {
         Debug.Log("Rollin'");
 
-        for (int i = 0; i < DicePrefab.Length; i++)
+        if (roll1 == false)
         {
-            Instantiate(DicePrefab[i]);
 
+            for (int i = 0; i < DicePrefab.Length; i++)
+            {
+                Instantiate(DicePrefab[i]);
+                roll1 = true;
+            }
         }
+     //   else
+    //    {
+     //      GameObject[] = FindGameObjectsWithTag
+     //       for
+     //   }
+            
+
 
     }
 

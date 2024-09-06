@@ -13,6 +13,7 @@ public class GameManager : MonoBehaviour
     public TMP_Text scoreText;
     private int score;
 
+
     public GameObject[] targetprefabs;
 //    private int spawnRate = 1;
 
@@ -44,7 +45,8 @@ public class GameManager : MonoBehaviour
         TitleScreen.SetActive(true);
 
 
-  
+
+
     }
 
     // Update is called once per frame
