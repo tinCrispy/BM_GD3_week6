@@ -20,6 +20,8 @@ public class Targets : MonoBehaviour
 
     public AudioClip soundTrack;
 
+    
+
   
 
     
@@ -66,13 +68,21 @@ public class Targets : MonoBehaviour
 
     private void OnMouseDown()
     {
-    
-//      gameManager.ScoreUpdate(1);
-//        gameManager.GameOver();
-        transform.position = playerManager.diceHolders[playerManager.diceBanked].transform.position + Vector3.up;
-        playerManager.diceBanked++;
-        rb.isKinematic = true;
-        isBanked = true;
+
+        if (!isBanked)
+        {
+            Vector3 currentRotation = transform.eulerAngles;
+            float xRot = currentRotation.x;
+            float zRot = currentRotation.z;
+            transform.rotation = Quaternion.Euler(xRot, 0, zRot);
+            transform.position = playerManager.diceHolders[playerManager.diceBanked].transform.position + Vector3.up;
+
+            //       transform.Rotate(transform.rotation.x, 0, transform.rotation.z); 
+            playerManager.diceBanked++;
+            rb.isKinematic = true;
+            isBanked = true;
+            gameObject.tag = "Banked";
+        }
 
         
 

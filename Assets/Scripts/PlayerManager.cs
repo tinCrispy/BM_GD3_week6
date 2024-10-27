@@ -1,12 +1,16 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Runtime.CompilerServices;
+using TMPro;
+using Unity.VisualScripting;
+using UnityEditor.Experimental.GraphView;
 using UnityEngine;
 using UnityEngine.UI;
 
 public class PlayerManager : MonoBehaviour
 {
     private Button rollButton;
+    public TMP_Text rollButtonText;
 
     public GameObject[] DicePrefab;
     public GameObject[] diceHolders;
@@ -14,7 +18,8 @@ public class PlayerManager : MonoBehaviour
 
     public int diceBanked;
 
-    public bool roll1;
+    public int rollNum;
+    
 
 
     // Start is called before the first frame update
@@ -22,9 +27,12 @@ public class PlayerManager : MonoBehaviour
     {
         rollButton = GetComponent<Button>();
         rollButton.onClick.AddListener(RollDice);
+        
 
         diceBanked = 0;
-        roll1 = false;
+        rollNum = 0;
+
+        updateRollNumber();
 
         
      
@@ -39,26 +47,47 @@ public class PlayerManager : MonoBehaviour
 
     private void RollDice()
     {
-        Debug.Log("Rollin'");
+        
 
-        if (roll1 == false)
+        if (rollNum == 0)
         {
+            Debug.Log("Roll 1");
+
+            rollNum = 1;
+
+            updateRollNumber();
 
             for (int i = 0; i < DicePrefab.Length; i++)
             {
                 Instantiate(DicePrefab[i]);
-                roll1 = true;
+                
             }
         }
-     //   else
-    //    {
-     //      GameObject[] = FindGameObjectsWithTag
-     //       for
-     //   }
-            
+
+
+        else if (rollNum > 0 && rollNum < 3)
+        {
+            rollNum += 1;
+            Debug.Log("roll" + rollNum);
+
+            updateRollNumber();
+
+            GameObject[] dieList2 = GameObject.FindGameObjectsWithTag("Die");
+            int diceCount = 0;
+
+            foreach (GameObject die in dieList2)
+            {
+                diceCount += 1;
+                Destroy(die);
+                Instantiate(DicePrefab[diceCount]);
+            }
+        }
+       
+
 
 
     }
+
 
     private void StupidMode()
     {
@@ -73,4 +102,28 @@ public class PlayerManager : MonoBehaviour
 
     }
 
+    private void updateRollNumber()
+    {
+        if (rollNum < 3)
+        {
+            rollButtonText.text = "ROLL " + (rollNum + 1);
+        }
+        else 
+        {
+            rollButtonText.text = "No More ROLLS"; 
+ //           rollButtonText.outlineColor = Color.white;
+        }
+    }
+
+    private void OnMouseDown()
+    {
+        var buttonColor = gameObject.GetComponent<Button>().colors.normalColor;
+        buttonColor = Color.green;
+    }
+
+    private void OnMouseUp()
+    {
+        var buttonColor = gameObject.GetComponent<Button>().colors.normalColor;
+        buttonColor = Color.white;
+    }
 }

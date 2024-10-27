@@ -6,6 +6,11 @@ TagManager:
   tags:
   - GoodObject
   - BadObject
+  - Bad
+  - Sensor
+  - Die
+  - Border
+  - Banked
   layers:
   - Default
   - TransparentFX
